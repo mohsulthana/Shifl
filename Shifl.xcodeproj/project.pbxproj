@@ -7,9 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		17043D122776C26F00EFD93A /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 17043D112776C26F00EFD93A /* Alamofire */; };
+		17043D152776E4BE00EFD93A /* KeychainHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17043D142776E4BE00EFD93A /* KeychainHelper.swift */; };
+		17043D172776E74A00EFD93A /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17043D162776E74A00EFD93A /* AuthManager.swift */; };
 		171C0FA6275DC3E800A1E9E3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 171C0FA5275DC3E800A1E9E3 /* AppDelegate.swift */; };
 		171C0FA8275DC3E800A1E9E3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 171C0FA7275DC3E800A1E9E3 /* SceneDelegate.swift */; };
-		171C0FAA275DC3E800A1E9E3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 171C0FA9275DC3E800A1E9E3 /* ViewController.swift */; };
+		171C0FAA275DC3E800A1E9E3 /* DashboardController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 171C0FA9275DC3E800A1E9E3 /* DashboardController.swift */; };
 		171C0FB0275DC3E800A1E9E3 /* Shifl.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 171C0FAE275DC3E800A1E9E3 /* Shifl.xcdatamodeld */; };
 		171C0FB2275DC3F200A1E9E3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 171C0FB1275DC3F200A1E9E3 /* Assets.xcassets */; };
 		171C0FB5275DC3F200A1E9E3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 171C0FB3275DC3F200A1E9E3 /* LaunchScreen.storyboard */; };
@@ -26,19 +29,24 @@
 		17C3CC862760FFC100AA6942 /* Inter-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 17C3CC772760FF3800AA6942 /* Inter-Regular.ttf */; };
 		17C3CC872760FFC100AA6942 /* Inter-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 17C3CC762760FF3800AA6942 /* Inter-ExtraBold.ttf */; };
 		17C3CC89276102B000AA6942 /* UITextField+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17C3CC88276102B000AA6942 /* UITextField+Extension.swift */; };
+		17CC71FE27673EFF0028AF96 /* TTGSnackbar in Frameworks */ = {isa = PBXBuildFile; productRef = 17CC71FD27673EFF0028AF96 /* TTGSnackbar */; };
+		17CC7200276750870028AF96 /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17CC71FF276750870028AF96 /* APIManager.swift */; };
 		17EAFA71275E42150083E931 /* LoginModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17EAFA70275E42150083E931 /* LoginModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		17043D142776E4BE00EFD93A /* KeychainHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainHelper.swift; sourceTree = "<group>"; };
+		17043D162776E74A00EFD93A /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
 		171C0FA2275DC3E700A1E9E3 /* Shifl.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Shifl.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		171C0FA5275DC3E800A1E9E3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		171C0FA7275DC3E800A1E9E3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		171C0FA9275DC3E800A1E9E3 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		171C0FA9275DC3E800A1E9E3 /* DashboardController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardController.swift; sourceTree = "<group>"; };
 		171C0FAF275DC3E800A1E9E3 /* Shifl.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Shifl.xcdatamodel; sourceTree = "<group>"; };
 		171C0FB1275DC3F200A1E9E3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		171C0FB4275DC3F200A1E9E3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		171C0FB6275DC3F200A1E9E3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		171C0FBC275DC72B00A1E9E3 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		1730B76027796E8300318EBA /* Shifl.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Shifl.entitlements; sourceTree = "<group>"; };
 		17378A262760C46A00DA0280 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		17C3CC732760FA3F00AA6942 /* ForgotPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewController.swift; sourceTree = "<group>"; };
 		17C3CC762760FF3800AA6942 /* Inter-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-ExtraBold.ttf"; sourceTree = "<group>"; };
@@ -51,6 +59,7 @@
 		17C3CC7D2760FF3800AA6942 /* Inter-ExtraLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-ExtraLight.ttf"; sourceTree = "<group>"; };
 		17C3CC7E2760FF3800AA6942 /* Inter-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-Light.ttf"; sourceTree = "<group>"; };
 		17C3CC88276102B000AA6942 /* UITextField+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extension.swift"; sourceTree = "<group>"; };
+		17CC71FF276750870028AF96 /* APIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
 		17EAFA70275E42150083E931 /* LoginModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -59,12 +68,23 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				17CC71FE27673EFF0028AF96 /* TTGSnackbar in Frameworks */,
+				17043D122776C26F00EFD93A /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		17043D132776E4B400EFD93A /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				17043D142776E4BE00EFD93A /* KeychainHelper.swift */,
+				17043D162776E74A00EFD93A /* AuthManager.swift */,
+			);
+			path = Helper;
+			sourceTree = "<group>";
+		};
 		171C0F99275DC3E700A1E9E3 = {
 			isa = PBXGroup;
 			children = (
@@ -84,11 +104,13 @@
 		171C0FA4275DC3E700A1E9E3 /* Shifl */ = {
 			isa = PBXGroup;
 			children = (
+				1730B76027796E8300318EBA /* Shifl.entitlements */,
+				17043D132776E4B400EFD93A /* Helper */,
 				17C3CC752760FF2200AA6942 /* Resources */,
 				17378A252760C45D00DA0280 /* Extension */,
 				171C0FA5275DC3E800A1E9E3 /* AppDelegate.swift */,
 				171C0FA7275DC3E800A1E9E3 /* SceneDelegate.swift */,
-				171C0FA9275DC3E800A1E9E3 /* ViewController.swift */,
+				171C0FA9275DC3E800A1E9E3 /* DashboardController.swift */,
 				171C0FB1275DC3F200A1E9E3 /* Assets.xcassets */,
 				171C0FB3275DC3F200A1E9E3 /* LaunchScreen.storyboard */,
 				171C0FB6275DC3F200A1E9E3 /* Info.plist */,
@@ -96,6 +118,7 @@
 				171C0FBC275DC72B00A1E9E3 /* LoginViewController.swift */,
 				17EAFA70275E42150083E931 /* LoginModel.swift */,
 				17C3CC732760FA3F00AA6942 /* ForgotPasswordViewController.swift */,
+				17CC71FF276750870028AF96 /* APIManager.swift */,
 			);
 			path = Shifl;
 			sourceTree = "<group>";
@@ -141,6 +164,10 @@
 			dependencies = (
 			);
 			name = Shifl;
+			packageProductDependencies = (
+				17CC71FD27673EFF0028AF96 /* TTGSnackbar */,
+				17043D112776C26F00EFD93A /* Alamofire */,
+			);
 			productName = Shifl;
 			productReference = 171C0FA2275DC3E700A1E9E3 /* Shifl.app */;
 			productType = "com.apple.product-type.application";
@@ -169,6 +196,10 @@
 				Base,
 			);
 			mainGroup = 171C0F99275DC3E700A1E9E3;
+			packageReferences = (
+				17CC71FC27673EFF0028AF96 /* XCRemoteSwiftPackageReference "TTGSnackbar" */,
+				17043D102776C26F00EFD93A /* XCRemoteSwiftPackageReference "Alamofire" */,
+			);
 			productRefGroup = 171C0FA3275DC3E700A1E9E3 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -205,11 +236,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				17C3CC89276102B000AA6942 /* UITextField+Extension.swift in Sources */,
+				17043D172776E74A00EFD93A /* AuthManager.swift in Sources */,
 				17C3CC742760FA3F00AA6942 /* ForgotPasswordViewController.swift in Sources */,
+				17CC7200276750870028AF96 /* APIManager.swift in Sources */,
 				17378A272760C46A00DA0280 /* UIColor+Extension.swift in Sources */,
 				171C0FB0275DC3E800A1E9E3 /* Shifl.xcdatamodeld in Sources */,
+				17043D152776E4BE00EFD93A /* KeychainHelper.swift in Sources */,
 				17EAFA71275E42150083E931 /* LoginModel.swift in Sources */,
-				171C0FAA275DC3E800A1E9E3 /* ViewController.swift in Sources */,
+				171C0FAA275DC3E800A1E9E3 /* DashboardController.swift in Sources */,
 				171C0FA6275DC3E800A1E9E3 /* AppDelegate.swift in Sources */,
 				171C0FBD275DC72B00A1E9E3 /* LoginViewController.swift in Sources */,
 				171C0FA8275DC3E800A1E9E3 /* SceneDelegate.swift in Sources */,
@@ -351,25 +385,29 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Shifl/Shifl.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 45N4YCBZCJ;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Shifl/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Shifl;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = mohsulthana.Shifl;
+				PRODUCT_BUNDLE_IDENTIFIER = mohsulthana.shifl;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -378,25 +416,29 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Shifl/Shifl.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 45N4YCBZCJ;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Shifl/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Shifl;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = mohsulthana.Shifl;
+				PRODUCT_BUNDLE_IDENTIFIER = mohsulthana.shifl;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -422,6 +464,38 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		17043D102776C26F00EFD93A /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
+		17CC71FC27673EFF0028AF96 /* XCRemoteSwiftPackageReference "TTGSnackbar" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/zekunyan/TTGSnackbar";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		17043D112776C26F00EFD93A /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 17043D102776C26F00EFD93A /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+		17CC71FD27673EFF0028AF96 /* TTGSnackbar */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 17CC71FC27673EFF0028AF96 /* XCRemoteSwiftPackageReference "TTGSnackbar" */;
+			productName = TTGSnackbar;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		171C0FAE275DC3E800A1E9E3 /* Shifl.xcdatamodeld */ = {

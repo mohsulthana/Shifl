@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "shifl.png",
+      "filename" : "android-chrome-512x512.jpg",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "shifl-1.png",
+      "filename" : "android-chrome-512x512@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "shifl-2.png",
+      "filename" : "android-chrome-512x512@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

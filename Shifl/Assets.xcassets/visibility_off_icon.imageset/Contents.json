@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "shifl.png",
+      "filename" : "Visibility Off.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "shifl-1.png",
+      "filename" : "Visibility Off@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "shifl-2.png",
+      "filename" : "Visibility Off@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

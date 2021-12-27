@@ -16,15 +16,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         let window = UIWindow(frame: UIScreen.main.bounds)
         
-        self.window = window
-        window.rootViewController = LoginViewController()
+        if AuthManager.shared.isSignedIn {
+            AuthManager.shared.refreshIsNeeded(completion: nil)
+            window.rootViewController = DashboardController()
+        } else {
+            window.rootViewController = LoginViewController()
+        }
+        
         window.makeKeyAndVisible()
-        
-        UINavigationBar.appearance().barTintColor = .init(red: 65.0/255, green: 151.0/255, blue: 176.0/255, alpha: 1.0)
-        UINavigationBar.appearance().tintColor = .white
-        UINavigationBar.appearance().titleTextAttributes = [.foregroundColor: UIColor.white]
-        UINavigationBar.appearance().isTranslucent = false
-        
+        self.window = window
         return true
     }
 
