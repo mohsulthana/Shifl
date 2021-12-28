@@ -8,7 +8,8 @@
 import UIKit
 import WebKit
 
-class DashboardController: UIViewController, WKNavigationDelegate, URLSessionDelegate, WKUIDelegate {
+class DashboardController: UIViewController, WKNavigationDelegate, URLSessionDelegate, WKUIDelegate, WKScriptMessageHandler {
+    
     let token = UserDefaults.standard.string(forKey: "token")
     let expiresAt = UserDefaults.standard.string(forKey: "expiresAt")
     var url = URL(string: "https://app.shifl.com/shipments")!
@@ -30,30 +31,38 @@ class DashboardController: UIViewController, WKNavigationDelegate, URLSessionDel
         let contentController = WKUserContentController()
         let userTokenScript = "localStorage.setItem('user_token', '\(token!)')"
         let expiresAtScript = "localStorage.setItem('expiresAt', '\(expiresAt!)')"
+        let logoutJs = "var btn = document.getElementsByClassName('btn-logout'); btn.setAttribute('id', 'btnLogout')"
+        let logoutScript = WKUserScript(source: logoutJs, injectionTime: WKUserScriptInjectionTime.atDocumentStart, forMainFrameOnly: false)
         let tokenScript = WKUserScript(source: userTokenScript, injectionTime: WKUserScriptInjectionTime.atDocumentStart, forMainFrameOnly: false)
         let expiresScript = WKUserScript(source: expiresAtScript, injectionTime: WKUserScriptInjectionTime.atDocumentStart, forMainFrameOnly: false)
         contentController.addUserScript(tokenScript)
         contentController.addUserScript(expiresScript)
+        contentController.addUserScript(logoutScript)
         configuration.userContentController = contentController
+        contentController.add(self, name: "buttonClicked")
         
         let webview = WKWebView(frame: .zero,
                                 configuration: configuration)
         
-        let jscode = """
-        <div id="test" style="height: 40px; width: 100px; background-color: powderblue;">Hello</div>
-        <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
-        <script type="text/javascript" src="js/platform.js"></script>
-
-        <script type="text/javascript">
-        document.getElementsByClassName("btn-logout")[0].addEventListener("click", function test() {
-            window.webkit.messageHandlers.test.postMessage("TEXT");
-        });
-        </script>
-        """
-        webview.evaluateJavaScript(jscode) { _, _ in }
-        
         return webview
     }()
+    
+    func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
+        if let messageBody:NSDictionary = message.body as? NSDictionary{
+            
+            if messageBody != nil {
+                // wipe all user's data and back to login VC
+                UserDefaults.standard.removeObject(forKey: "token")
+                UserDefaults.standard.removeObject(forKey: "expiresAt")
+
+                // redirect to login
+                let loginVC = LoginViewController()
+                let navVC = UINavigationController(rootViewController: loginVC)
+                navVC.modalPresentationStyle = .fullScreen
+                self.present(navVC, animated: true, completion: nil)
+            }
+        }
+    }
     
     lazy var navCard: UIView = {
         let view = UIView()
@@ -100,28 +109,21 @@ class DashboardController: UIViewController, WKNavigationDelegate, URLSessionDel
         webView.allowsBackForwardNavigationGestures = true
     }
     
+    // for future development
+//    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+//        webView.evaluateJavaScript("document.getElementById('btnLogout')") { (result, error) in
+//            print("res \(result)")
+//        }
+//    }
+    
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
         decisionHandler(.allow)
     }
     
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-        if AuthManager.shared.shouldRefreshToken {
+        if AuthManager.shared.isSignedIn && AuthManager.shared.shouldRefreshToken {
             AuthManager.shared.refreshIsNeeded(completion: nil)
         }
-        
-//        if keyPath == #keyPath(WKWebView.url) {
-//            if self.webView.url?.path.contains("login") == true && countLoginURL > 1 {
-//                // wipe all user's data and back to login VC
-//                UserDefaults.standard.removeObject(forKey: "token")
-//                UserDefaults.standard.removeObject(forKey: "expiresAt")
-//
-//                // redirect to login
-//                let loginVC = LoginViewController()
-//                let navVC = UINavigationController(rootViewController: loginVC)
-//                navVC.modalPresentationStyle = .fullScreen
-//                self.present(navVC, animated: true, completion: nil)
-//            }
-//        }
     }
     
     deinit {
