@@ -15,6 +15,7 @@ class DashboardController: UIViewController, WKNavigationDelegate, URLSessionDel
     let expiresAt = UserDefaults.standard.string(forKey: "expiresAt")
     var url = URL(string: "https://app.shifl.com/shipments")!
     var loggedIn: Bool?
+    var height: Double?
     
     lazy var snackbar: TTGSnackbar = {
         let snack = TTGSnackbar(message: "You are signed in", duration: .middle)
@@ -29,12 +30,12 @@ class DashboardController: UIViewController, WKNavigationDelegate, URLSessionDel
         let prefs = WKWebpagePreferences()
         prefs.allowsContentJavaScript = true
         
-        let script = WKUserScript(
-            source: "window.localStorage.clear();",
-            injectionTime: .atDocumentStart,
-            forMainFrameOnly: true
-        )
-        configuration.userContentController.addUserScript(script)
+//        let script = WKUserScript(
+//            source: "window.localStorage.clear();",
+//            injectionTime: .atDocumentStart,
+//            forMainFrameOnly: true
+//        )
+//        configuration.userContentController.addUserScript(script)
         
         configuration.defaultWebpagePreferences = prefs
         let contentController = WKUserContentController()
@@ -77,6 +78,7 @@ class DashboardController: UIViewController, WKNavigationDelegate, URLSessionDel
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = UIColor(named: "primary_color")
+//        view.backgroundColor = .red
         return view
     }()
 
@@ -101,6 +103,16 @@ class DashboardController: UIViewController, WKNavigationDelegate, URLSessionDel
         snackbar.show()
     }
     
+    let statusBarHeight: CGFloat = {
+        var heightToReturn: CGFloat = 0.0
+             for window in UIApplication.shared.windows {
+                 if let height = window.windowScene?.statusBarManager?.statusBarFrame.height, height > heightToReturn {
+                     heightToReturn = height
+                 }
+             }
+        return heightToReturn
+    }()
+    
     func configUI() {
         view.addSubview(navCard)
         
@@ -108,7 +120,7 @@ class DashboardController: UIViewController, WKNavigationDelegate, URLSessionDel
             navCard.topAnchor.constraint(equalTo: view.topAnchor),
             navCard.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             navCard.widthAnchor.constraint(equalToConstant: view.frame.size.width),
-            navCard.heightAnchor.constraint(equalToConstant: view.frame.size.height - (view.frame.size.height * 96/100))
+            navCard.heightAnchor.constraint(equalToConstant: statusBarHeight)
         ])
     }
     
