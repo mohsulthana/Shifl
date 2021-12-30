@@ -77,7 +77,6 @@ final class AuthManager {
         request.addValue("Bearer \(accessToken!)", forHTTPHeaderField: "Authorization")
         
         let semaphore = DispatchSemaphore(value: 0)
-        
         let task = URLSession.shared.dataTask(with: request, completionHandler: { [weak self] data, response, error in
             self?.refreshingToken = false
             guard let data = data, error == nil else {
@@ -89,6 +88,7 @@ final class AuthManager {
             
             do {
                 let result = try JSONDecoder().decode(LoginModel.self, from: data)
+                print(result)
                 let expiresAt = Int(Date().timeIntervalSince1970) + result.expiresIn
                 let token = result.token
                 
@@ -106,6 +106,6 @@ final class AuthManager {
             }
         })
         task.resume()
-        semaphore.wait()
+        semaphore.wait(timeout: DispatchTime.distantFuture)
     }
 }

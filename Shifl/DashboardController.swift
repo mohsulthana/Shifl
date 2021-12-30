@@ -7,12 +7,21 @@
 
 import UIKit
 import WebKit
+import TTGSnackbar
 
 class DashboardController: UIViewController, WKNavigationDelegate, URLSessionDelegate, WKUIDelegate, WKScriptMessageHandler {
     
     let token = UserDefaults.standard.string(forKey: "token")
     let expiresAt = UserDefaults.standard.string(forKey: "expiresAt")
     var url = URL(string: "https://app.shifl.com/shipments")!
+    var loggedIn: Bool?
+    
+    lazy var snackbar: TTGSnackbar = {
+        let snack = TTGSnackbar(message: "You are signed in", duration: .middle)
+        snack.leftMargin = 15
+        snack.rightMargin = 15
+        return snack
+    }()
     
     lazy var webView: WKWebView = {
         
@@ -89,6 +98,7 @@ class DashboardController: UIViewController, WKNavigationDelegate, URLSessionDel
         webView.navigationDelegate = self
         loadWebPage(url: self.url)
         configUI()
+        snackbar.show()
     }
     
     func configUI() {
@@ -98,7 +108,7 @@ class DashboardController: UIViewController, WKNavigationDelegate, URLSessionDel
             navCard.topAnchor.constraint(equalTo: view.topAnchor),
             navCard.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             navCard.widthAnchor.constraint(equalToConstant: view.frame.size.width),
-            navCard.heightAnchor.constraint(equalToConstant: 50)
+            navCard.heightAnchor.constraint(equalToConstant: view.frame.size.height - (view.frame.size.height * 96/100))
         ])
     }
     

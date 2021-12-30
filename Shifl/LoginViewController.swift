@@ -7,16 +7,19 @@
 
 import UIKit
 import TTGSnackbar
+import SwiftSpinner
 
 class LoginViewController: UIViewController, UITextFieldDelegate {
     
     let generator = UINotificationFeedbackGenerator()
     let toolbar = UIToolbar.init(frame: CGRect.init(x: 0.0, y: UIScreen.main.bounds.size.height - 300, width: UIScreen.main.bounds.size.width, height: 50))
+    var isLoggingIn: Bool = false
     
     lazy var activityIndicator: UIActivityIndicatorView = {
-        let activity = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.large)
-        activity.translatesAutoresizingMaskIntoConstraints = false
-        return activity
+        let indicator = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
+        indicator.style = UIActivityIndicatorView.Style.large
+        indicator.center = self.view.center
+        return indicator
     }()
     
     lazy var activityIndicatorView: UIView = {
@@ -30,7 +33,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         return uiVIew
     }()
     
-    let snackbar: TTGSnackbar = {
+    lazy var snackbar: TTGSnackbar = {
         let snack = TTGSnackbar(message: "Account not found", duration: .middle)
         snack.leftMargin = 15
         snack.rightMargin = 15
@@ -101,7 +104,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             button.bottomAnchor.constraint(equalTo: field.bottomAnchor),
             button.centerYAnchor.constraint(equalTo: field.centerYAnchor),
             button.trailingAnchor.constraint(equalTo: field.trailingAnchor),
-            button.widthAnchor.constraint(equalToConstant: 50),
+            button.widthAnchor.constraint(equalToConstant: 60),
         ])
         button.addTarget(self, action: #selector(togglePassword(sender:)), for: .touchUpInside)
         return field
@@ -202,13 +205,17 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         super.viewDidLayoutSubviews()
         navigationController?.setNavigationBarHidden(true, animated: true)
         
-        if UserDefaults.standard.string(forKey: "USER_EMAIL") != nil {
-            emailTextField.text = UserDefaults.standard.string(forKey: "USER_EMAIL")
+        if let rememberMe = UserDefaults.standard.string(forKey: "USER_EMAIL")  {
+            emailTextField.text = rememberMe
         }
-
-        if UserDefaults.standard.string(forKey: "USER_PASSWORD") != nil {
-            passwordTextField.text = UserDefaults.standard.string(forKey: "USER_PASSWORD")
-        }
+        
+//        if UserDefaults.standard.string(forKey: "USER_EMAIL") != nil {
+//            emailTextField.text = UserDefaults.standard.string(forKey: "USER_EMAIL")
+//        }
+//
+//        if UserDefaults.standard.string(forKey: "USER_PASSWORD") != nil {
+//            passwordTextField.text = UserDefaults.standard.string(forKey: "USER_PASSWORD")
+//        }
     }
     
     @objc
@@ -217,7 +224,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     }
     
     func showSpinner() {
-        self.view.addSubview(activityIndicatorView)
+        view.addSubview(activityIndicatorView)
     }
     
     func removeSpinner() {
@@ -234,89 +241,49 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     
     @objc
     func login() {
-        showSpinner()
-        
+        SwiftSpinner.show("Loading...")
+        // animate button click
+//        UIButton.animate(withDuration: 0.2, animations: {
+//            self.loginBtn.transform = CGAffineTransform(scaleX: 0.975, y: 0.96)
+//        }, completion: { finish in
+//            UIButton.animate(withDuration: 0.2, animations: {
+//                self.loginBtn.transform = CGAffineTransform.identity
+//            })
+//        })
+
         // if user tick remember me button
         if checkboxButton.isSelected {
             UserDefaults.standard.set(emailTextField.text!, forKey: "USER_EMAIL")
-            UserDefaults.standard.set(passwordTextField.text!, forKey: "USER_PASSWORD")
+        } else {
+            UserDefaults.standard.removeObject(forKey: "USER_EMAIL")
         }
-        
-        // animate button click
-        
-        UIButton.animate(withDuration: 0.2, animations: {
-            self.loginBtn.transform = CGAffineTransform(scaleX: 0.975, y: 0.96)
-        }, completion: { finish in
-            UIButton.animate(withDuration: 0.2, animations: {
-                self.loginBtn.transform = CGAffineTransform.identity
-            })
-        })
-        
+
         APIManager.shared.login(email: emailTextField.text!, password: passwordTextField.text!) { result in
-            self.generator.notificationOccurred(.success)
-            DispatchQueue.main.async {
-                self.removeSpinner()
-                let dashboardVC = DashboardController()
-                let navVC = UINavigationController(rootViewController: dashboardVC)
-                navVC.modalPresentationStyle = .overFullScreen
-                self.present(navVC, animated: true, completion: nil)
+            switch result {
+            case .failure(let error):
+                DispatchQueue.main.async {
+                    print(error.localizedDescription)
+                    self.generator.notificationOccurred(.error)
+                    self.snackbar.message = "Wrong email or password"
+                    self.snackbar.show()
+                    SwiftSpinner.hide()
+                }
+            case .success( _):
+                self.generator.notificationOccurred(.success)
+                DispatchQueue.main.async {
+                    let dashboardVC = DashboardController()
+                    dashboardVC.loggedIn = true
+                    let navVC = UINavigationController(rootViewController: dashboardVC)
+                    navVC.modalPresentationStyle = .overFullScreen
+                    self.present(navVC, animated: true, completion: nil)
+                }
             }
         }
-        
-        
-        
-//        let url = URL(string: "https://beta.shifl.com/api/login")
-//        guard let requestUrl = url else { fatalError() }
-//        var request = URLRequest(url: requestUrl)
-//        request.httpMethod = "POST"
-//
-//        let postString = "email=\(emailTextField.text!)&password=\(passwordTextField.text!)";
-//        request.httpBody = postString.data(using: String.Encoding.utf8);
-//        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
-//
-//            let response = response as! HTTPURLResponse
-//            let status = response.statusCode
-//            if status == 404 {
-//                DispatchQueue.main.async {
-//                    self.removeSpinner()
-//                    self.snackbar.show()
-//                }
-//                self.generator.notificationOccurred(.error)
-//                return
-//            }
-//
-//            if let error = error {
-//                print("Error took place \(error)")
-//                return
-//            }
-//
-//            do {
-//                let result = try JSONDecoder().decode(LoginModel.self, from: data!)
-//                let expiresAt = Int(Date().timeIntervalSince1970) + result.expiresIn
-//                let token = result.token
-//
-//                KeychainHelper.shared.save(Data(token.utf8), service: "token", account: "shifl")
-//
-//                UserDefaults.standard.set(expiresAt, forKey: "expiresAt")
-//                self.generator.notificationOccurred(.success)
-//                DispatchQueue.main.async {
-//                    let dashboardVC = ViewController()
-//                    let navVC = UINavigationController(rootViewController: dashboardVC)
-//                    navVC.modalPresentationStyle = .overFullScreen
-//                    self.present(navVC, animated: true, completion: nil)
-//                }
-//            } catch {
-//                self.removeSpinner()
-//                fatalError()
-//            }
-//        }
-//        task.resume()
     }
     
     private func configUI() {
         view.addSubview(card)
         view.addSubview(logo)
-        view.addSubview(activityIndicator)
         card.addSubview(titleLabel)
         card.addSubview(emailTextField)
         card.addSubview(passwordTextField)
@@ -324,6 +291,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         card.addSubview(forgotPasswordBtn)
         card.addSubview(checkboxButton)
         card.addSubview(rememberMeLabel)
+        view.addSubview(activityIndicator)
+        view.addSubview(activityIndicator)
         
         NSLayoutConstraint.activate([
             card.centerXAnchor.constraint(equalTo: view.centerXAnchor),

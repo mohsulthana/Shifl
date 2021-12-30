@@ -18,6 +18,7 @@
 		171C0FB5275DC3F200A1E9E3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 171C0FB3275DC3F200A1E9E3 /* LaunchScreen.storyboard */; };
 		171C0FBD275DC72B00A1E9E3 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 171C0FBC275DC72B00A1E9E3 /* LoginViewController.swift */; };
 		17378A272760C46A00DA0280 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17378A262760C46A00DA0280 /* UIColor+Extension.swift */; };
+		17945762277C64A7005AD332 /* SwiftSpinner in Frameworks */ = {isa = PBXBuildFile; productRef = 17945761277C64A7005AD332 /* SwiftSpinner */; };
 		17C3CC742760FA3F00AA6942 /* ForgotPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17C3CC732760FA3F00AA6942 /* ForgotPasswordViewController.swift */; };
 		17C3CC7F2760FFBC00AA6942 /* Inter-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 17C3CC782760FF3800AA6942 /* Inter-Black.ttf */; };
 		17C3CC802760FFC100AA6942 /* Inter-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 17C3CC7C2760FF3800AA6942 /* Inter-Thin.ttf */; };
@@ -70,6 +71,7 @@
 			files = (
 				17CC71FE27673EFF0028AF96 /* TTGSnackbar in Frameworks */,
 				17043D122776C26F00EFD93A /* Alamofire in Frameworks */,
+				17945762277C64A7005AD332 /* SwiftSpinner in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -167,6 +169,7 @@
 			packageProductDependencies = (
 				17CC71FD27673EFF0028AF96 /* TTGSnackbar */,
 				17043D112776C26F00EFD93A /* Alamofire */,
+				17945761277C64A7005AD332 /* SwiftSpinner */,
 			);
 			productName = Shifl;
 			productReference = 171C0FA2275DC3E700A1E9E3 /* Shifl.app */;
@@ -199,6 +202,7 @@
 			packageReferences = (
 				17CC71FC27673EFF0028AF96 /* XCRemoteSwiftPackageReference "TTGSnackbar" */,
 				17043D102776C26F00EFD93A /* XCRemoteSwiftPackageReference "Alamofire" */,
+				17945760277C64A7005AD332 /* XCRemoteSwiftPackageReference "SwiftSpinner" */,
 			);
 			productRefGroup = 171C0FA3275DC3E700A1E9E3 /* Products */;
 			projectDirPath = "";
@@ -386,8 +390,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Shifl/Shifl.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = 45N4YCBZCJ;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Shifl/Info.plist;
@@ -402,9 +407,10 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = mohsulthana.shifl;
+				MARKETING_VERSION = 1.2;
+				PRODUCT_BUNDLE_IDENTIFIER = com.shifl.ios60ad2a94c949e;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -417,8 +423,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Shifl/Shifl.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = 45N4YCBZCJ;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Shifl/Info.plist;
@@ -433,9 +440,10 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = mohsulthana.shifl;
+				MARKETING_VERSION = 1.2;
+				PRODUCT_BUNDLE_IDENTIFIER = com.shifl.ios60ad2a94c949e;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -474,6 +482,14 @@
 				minimumVersion = 5.0.0;
 			};
 		};
+		17945760277C64A7005AD332 /* XCRemoteSwiftPackageReference "SwiftSpinner" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/icanzilb/SwiftSpinner";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
 		17CC71FC27673EFF0028AF96 /* XCRemoteSwiftPackageReference "TTGSnackbar" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/zekunyan/TTGSnackbar";
@@ -489,6 +505,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 17043D102776C26F00EFD93A /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;
+		};
+		17945761277C64A7005AD332 /* SwiftSpinner */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 17945760277C64A7005AD332 /* XCRemoteSwiftPackageReference "SwiftSpinner" */;
+			productName = SwiftSpinner;
 		};
 		17CC71FD27673EFF0028AF96 /* TTGSnackbar */ = {
 			isa = XCSwiftPackageProductDependency;

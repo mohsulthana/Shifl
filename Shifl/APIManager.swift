@@ -61,44 +61,12 @@ class APIManager {
                 UserDefaults.standard.set(expiresAt, forKey: "expiresAt")
                 completion(.success(result))
             } catch {
-                print(error.localizedDescription)
                 completion(.failure(error))
             }
         }
         task.resume()
         semaphore.wait()
     }
-//
-//    func refreshToken() {
-//        let url = URL(string: "\(baseURL)refresh-token")
-//        guard let requestUrl = url else { fatalError() }
-//        var request = URLRequest(url: requestUrl)
-//        request.httpMethod = "POST"
-//
-//        // Perform HTTP Request
-//        let session = URLSession(configuration: URLSessionConfiguration.default)
-//        let task = session.dataTask(with: request) { (data, response, error) in
-//            if let error = error {
-//                print("Error took place \(error)")
-//                return
-//            }
-//
-//
-//
-//            do {
-//                let result = try JSONDecoder().decode(LoginModel.self, from: data!)
-//                let expiresAt = Int(Date().timeIntervalSince1970) + result.expiresIn
-//
-//                print(result)
-//
-//                UserDefaults.standard.set(result.token, forKey: "token")
-//                UserDefaults.standard.set(expiresAt, forKey: "expiresAt")
-//            } catch {
-//                fatalError()
-//            }
-//        }
-//        task.resume()
-//    }
     
     // MARK: - Private
     private func createRequest(with url: URL?, type: HTTPMethod, completion: @escaping (URLRequest) -> Void) {
