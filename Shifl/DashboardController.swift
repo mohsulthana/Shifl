@@ -13,9 +13,11 @@ class DashboardController: UIViewController, WKNavigationDelegate, URLSessionDel
     
     let token = UserDefaults.standard.string(forKey: "token")
     let expiresAt = UserDefaults.standard.string(forKey: "expiresAt")
-    var url = URL(string: "https://app.shifl.com/shipments")!
+//    var url = URL(string: "https://app.shifl.com/shipments")!
+    var url = URL(string: "http://localhost:8081/shipments")!
     var loggedIn: Bool?
     var height: Double?
+    let refreshControl = UIRefreshControl()
     
     lazy var snackbar: TTGSnackbar = {
         let snack = TTGSnackbar(message: "You are signed in", duration: .middle)
@@ -29,13 +31,6 @@ class DashboardController: UIViewController, WKNavigationDelegate, URLSessionDel
         let configuration = WKWebViewConfiguration()
         let prefs = WKWebpagePreferences()
         prefs.allowsContentJavaScript = true
-        
-//        let script = WKUserScript(
-//            source: "window.localStorage.clear();",
-//            injectionTime: .atDocumentStart,
-//            forMainFrameOnly: true
-//        )
-//        configuration.userContentController.addUserScript(script)
         
         configuration.defaultWebpagePreferences = prefs
         let contentController = WKUserContentController()
@@ -78,7 +73,6 @@ class DashboardController: UIViewController, WKNavigationDelegate, URLSessionDel
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = UIColor(named: "primary_color")
-//        view.backgroundColor = .red
         return view
     }()
 
@@ -98,6 +92,7 @@ class DashboardController: UIViewController, WKNavigationDelegate, URLSessionDel
         navigationController?.navigationBar.scrollEdgeAppearance = navBarAppearance
         webView.addObserver(self, forKeyPath: "URL", options: .new, context: nil)
         webView.navigationDelegate = self
+        refreshControl.addTarget(self, action: #selector(reloadWeb(_:)), for: .valueChanged)
         loadWebPage(url: self.url)
         configUI()
         snackbar.show()
@@ -115,6 +110,7 @@ class DashboardController: UIViewController, WKNavigationDelegate, URLSessionDel
     
     func configUI() {
         view.addSubview(navCard)
+//        webView.scrollView.addSubview(refreshControl)
         
         NSLayoutConstraint.activate([
             navCard.topAnchor.constraint(equalTo: view.topAnchor),
@@ -124,11 +120,22 @@ class DashboardController: UIViewController, WKNavigationDelegate, URLSessionDel
         ])
     }
     
-    func loadWebPage(url: URL)  {
-        var request = URLRequest(url: url)
-        request.addValue("Bearer \(token!)", forHTTPHeaderField: "Authorization")
-        webView.load(URLRequest(url: url))
-        webView.allowsBackForwardNavigationGestures = true
+    func loadWebPage(url: URL?)  {
+        AuthManager.shared.withValidToken { token in
+            guard let apiURL = url else {
+                return
+            }
+            
+            var request = URLRequest(url: url!)
+            request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+            self.webView.load(URLRequest(url: url!))
+            self.webView.allowsBackForwardNavigationGestures = true
+        }
+    }
+    
+    @objc func reloadWeb(_ sender: UIRefreshControl) {
+        loadWebPage(url: url)
+        sender.endRefreshing()
     }
     
     // for future development
@@ -143,9 +150,16 @@ class DashboardController: UIViewController, WKNavigationDelegate, URLSessionDel
     }
     
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-        if AuthManager.shared.isSignedIn && AuthManager.shared.shouldRefreshToken {
-            AuthManager.shared.refreshIsNeeded(completion: nil)
-        }
+        if object as AnyObject? === webView && keyPath == "URL" {
+            url = webView.url!
+//             print("URL Change 1:", webView.url?.absoluteString ?? "No value provided")
+         }
+//        if keyPath == #keyPath(WKWebView.url) {
+//            print("URL Change 2:", self.webView.url?.absoluteString ?? "# No value provided")
+//        }
+//        if AuthManager.shared.isSignedIn && AuthManager.shared.shouldRefreshToken {
+//            AuthManager.shared.refreshIsNeeded(completion: nil)
+//        }
     }
     
     deinit {

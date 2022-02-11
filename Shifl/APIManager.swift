@@ -49,6 +49,13 @@ class APIManager {
                 return
             }
             
+            let resp = response as? HTTPURLResponse
+            
+            if resp?.statusCode != 200 {
+                completion(.failure(APIError.failedToGetData))
+                return
+            }
+            
             semaphore.signal()
             
             do {
@@ -61,6 +68,7 @@ class APIManager {
                 UserDefaults.standard.set(expiresAt, forKey: "expiresAt")
                 completion(.success(result))
             } catch {
+                print(error)
                 completion(.failure(error))
             }
         }

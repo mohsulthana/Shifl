@@ -53,7 +53,9 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         let field = UITextField(frame: .zero)
         field.placeholder = "e.g. abcdefghij@email.com"
         field.borderStyle = .roundedRect
-        field.text = "david@tpro.com"
+//        field.text = "david@tpro.com"
+        field.textContentType = .emailAddress
+        field.keyboardType = .emailAddress
         field.layer.cornerRadius = 4
         field.layer.borderColor = UIColor.gray.cgColor
         field.font = UIFont(name: "Inter-Regular", size: 14)
@@ -75,7 +77,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         let button = UIButton()
         
         field.placeholder = "Type your password"
-        field.text = "Davidshifl976"
+//        field.text = "Davidshifl976"
+        field.textContentType = .password
         field.borderStyle = .roundedRect
         field.isSecureTextEntry = true
         field.font = UIFont(name: "Inter-Regular", size: 14)
@@ -208,14 +211,11 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         if let rememberMe = UserDefaults.standard.string(forKey: "USER_EMAIL")  {
             emailTextField.text = rememberMe
         }
-        
-//        if UserDefaults.standard.string(forKey: "USER_EMAIL") != nil {
-//            emailTextField.text = UserDefaults.standard.string(forKey: "USER_EMAIL")
-//        }
-//
-//        if UserDefaults.standard.string(forKey: "USER_PASSWORD") != nil {
-//            passwordTextField.text = UserDefaults.standard.string(forKey: "USER_PASSWORD")
-//        }
+    }
+    
+    func cacheUserCredentials() {
+        UserDefaults.standard.set(emailTextField.text!, forKey: "EMAIL_SAVED")
+        UserDefaults.standard.set(passwordTextField.text!, forKey: "PASSWORD_SAVED")
     }
     
     @objc
@@ -257,6 +257,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         } else {
             UserDefaults.standard.removeObject(forKey: "USER_EMAIL")
         }
+        
+        cacheUserCredentials()
 
         APIManager.shared.login(email: emailTextField.text!, password: passwordTextField.text!) { result in
             switch result {

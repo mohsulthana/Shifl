@@ -60,6 +60,8 @@ final class AuthManager {
                     completion(token)
                 }
             }
+        }  else if let token = accessToken {
+            completion(token)
         }
     }
     
@@ -84,11 +86,28 @@ final class AuthManager {
                 return
             }
             
+            let resp = response as? HTTPURLResponse
+            
+            if resp?.statusCode == 500 || resp?.statusCode == 403 {
+                // reauthenticate user
+                let email = UserDefaults.standard.string(forKey: "EMAIL_SAVED")
+                let password = UserDefaults.standard.string(forKey: "PASSWORD_SAVED")
+                
+                APIManager.shared.login(email: email ?? "", password: password ?? "") { [weak self] result in
+                    switch result {
+                    case .failure(let error):
+                        print(error)
+                    case .success(let model):
+                        print(model)
+                        return
+                    }
+                }
+            }
+            
             semaphore.signal()
             
             do {
                 let result = try JSONDecoder().decode(LoginModel.self, from: data)
-                print(result)
                 let expiresAt = Int(Date().timeIntervalSince1970) + result.expiresIn
                 let token = result.token
                 
